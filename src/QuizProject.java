@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class Questions{
    private int id;
   private String question;
@@ -65,6 +66,8 @@ class Questions{
 }
 class QuestionService{
     Questions[] questions=new Questions[5];
+    String[] selection=new String[5];
+
     public QuestionService(){
         questions[0] = new Questions(1, "Size of int in Java?",
                 "2 bytes", "6 bytes", "8 bytes", "4 bytes", "4 bytes");
@@ -82,18 +85,44 @@ class QuestionService{
                 "Encapsulation", "Abstraction", "Polymorphism", "Inheritance", "Polymorphism");
     }
     public  void playQuiz(){
+        int i=0;
         for(Questions q:questions){
             System.out.println("Question No. "+q.getId());
+            System.out.println(q.getQuestion());
+            System.out.println(q.getOpt1());
+            System.out.println(q.getOpt2());
+            System.out.println(q.getOpt3());
+            System.out.println(q.getOpt4());
+            Scanner sc=new Scanner(System.in);
+            selection[i]=sc.nextLine();
+            i++;
+        }
+        for(String s: selection){
+            System.out.println(s);
         }
 
+    }
+    public void printScore(){
+        int score=0;
+        for(int i=0;i<questions.length;i++){
+            Questions que= questions[i];
+            String trueanswer= que.getAnswer();
+            String userans=selection[i];
+            if(trueanswer.equalsIgnoreCase(userans)){
+                score++;
+            }
+        }
+        System.out.println("your score is :"+score);
     }
 
 
 }
 public class QuizProject {
     public static void main(String[] args){
+
  QuestionService service=new QuestionService();
  service.playQuiz();
+ service.printScore();
 
     }
 }
